@@ -9,7 +9,7 @@
     body {
       margin: 0;
       font-family: 'Poppins', sans-serif !important;
-      background: linear-gradient(135deg, #d4f1f4, #ffffff);
+      background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
       color: #000000;
       overflow: hidden;
     }
@@ -23,7 +23,7 @@
     }
     .btn {
       padding: 1rem 2rem;
-      background-color: #0399f0;
+      background-color: #4682b4;
       color: white;
       border: none;
       border-radius: 10px;
@@ -42,18 +42,18 @@
       margin: 2rem auto;
       max-width: 600px;
       text-align: center;
-      background-color: #fff0f5;
+      background-color: #d0e1f9;
     }
     .titulo-invitacion {
       font-size: 2rem;
       font-weight: bold;
-      color: #0427f0;
-      text-shadow: 0 0 10px #080808, 0 0 20px #f8eef3;
+      color: #39ff14;
+      text-shadow: 0 0 10px #39ff14, 0 0 20px #ff0080;
       animation: brillo 1.5s infinite alternate;
     }
     @keyframes brillo {
-      0% { text-shadow: 0 0 10px #020202, 0 0 20px #dff707; }
-      100% { text-shadow: 0 0 20px #0441eb, 0 0 30px #131313; }
+      0% { text-shadow: 0 0 10px #39ff14, 0 0 20px #ff0080; }
+      100% { text-shadow: 0 0 20px #ff0080, 0 0 30px #39ff14; }
     }
     .emoji-bounce {
       font-size: 2rem;
@@ -64,6 +64,14 @@
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-10px); }
     }
+    input[type="text"] {
+      padding: 1rem;
+      font-size: 1.2rem;
+      border: 2px solid #4682b4;
+      border-radius: 8px;
+      width: 80%;
+      max-width: 400px;
+    }
   </style>
 </head>
 <body>
@@ -72,11 +80,9 @@
   <!-- Sección 1: Portada -->
   <section id="portada" class="active">
     <div class="portada-bg">
-      <h1 class="titulo-invitacion"><span class="emoji-bounce">🎉</span> ¡Estás invitado al cumpleaños de Brian! <span class="emoji-bounce">🎈</span></h1>
-      <p>¡Vamos a celebrar sus 21 con toda joda, la música !</p>
-      <p><strong>📅 Cuándo:</strong> 12 de abril | <strong>🕛 Hora:</strong> 12:00 p.m. a 20:00 p.m.</p>
-      <p><strong>📍 Dónde:</strong> J. L. Palliere 2309, Villa Rosa, Bs. As.</p>
-      <button class="btn" onclick="mostrarSeccion('confirmacion')">¡Continuar!</button>
+      <h1 class="titulo-invitacion"><span class="emoji-bounce">🎉</span> ¡Estás invitado al cumple de Brian! <span class="emoji-bounce">🎈</span></h1>
+      <p>¡Vamos a celebrar sus 21 con toda la fiesta, la música y la alegría!</p>
+      <button class="btn" onclick="mostrarSeccion('confirmacion')">¡Quiero ir!</button>
     </div>
   </section>
 
@@ -121,4 +127,5 @@
   </script>
 </body>
 </html>
+
 
