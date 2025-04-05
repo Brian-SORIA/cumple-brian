@@ -38,7 +38,7 @@
     .portada-bg {
       padding: 4rem 2rem;
       border-radius: 20px;
-      box-shadow: 0 0 20px rgb(49, 2, 255);
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
       margin: 2rem auto;
       max-width: 600px;
       text-align: center;
@@ -47,13 +47,13 @@
     .titulo-invitacion {
       font-size: 2rem;
       font-weight: bold;
-      color: #3704f1;
-      text-shadow: 0 0 10px #fffb05, 0 0 20px #f0e004;
-      animation: brillo 1.5s infinite alternate;
+      color: #39ff14;
+      text-shadow: 0 0 10px #ff0, 0 0 20px #ff0;
+      animation: parpadeoLED 1s infinite alternate;
     }
-    @keyframes brillo {
-      0% { text-shadow: 0 0 10px #f1f503, 0 0 20px #f5e504; }
-      100% { text-shadow: 0 0 20px #fdf904, 0 0 30px #ecdd04; }
+    @keyframes parpadeoLED {
+      0% { text-shadow: 0 0 10px #ff0, 0 0 20px #ff0; }
+      100% { text-shadow: none; }
     }
     .emoji-bounce {
       font-size: 2rem;
@@ -81,9 +81,7 @@
   <section id="portada" class="active">
     <div class="portada-bg">
       <h1 class="titulo-invitacion"><span class="emoji-bounce">🎉</span> ¡Estás invitado al cumple de Brian! <span class="emoji-bounce">🎈</span></h1>
-      <p>¡Vamos a celebrar sus 21 con toda joda, la música !</p>
-      <p><strong>📅 Cuándo:</strong> 12 de abril | <strong>🕛 Hora:</strong> 12:00 p.m. a 20:00 p.m.</p>
-      <p><strong>📍 Dónde:</strong> J. L. Palliere 2309, Villa Rosa, Bs. As.</p>
+      <p>¡Vamos a celebrar sus 21 con toda la fiesta, la música y la alegría!</p>
       <button class="btn" onclick="mostrarSeccion('confirmacion')">¡Quiero ir!</button>
     </div>
   </section>
