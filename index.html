@@ -114,7 +114,7 @@
 </head>
 <body>
   <!-- 🔊 Música de fondo oculta -->
-  <audio id="musicaFondo" loop playsinline>
+  <audio id="musicaFondo" autoplay loop playsinline>
     <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
     Tu navegador no soporta audio.
   </audio>
@@ -160,20 +160,13 @@
     function mostrarSeccion(id) {
       document.querySelectorAll('section').forEach(sec => sec.classList.remove('active'));
       document.getElementById(id).classList.add('active');
-
-      if (id === 'confirmacion') {
-        const audio = document.getElementById('musicaFondo');
-        if (audio.paused) {
-          audio.play().catch(err => console.warn('Audio no iniciado:', err));
-        }
-      }
     }
 
     function enviarConfirmacion(event) {
       event.preventDefault();
       const nombre = document.getElementById('nombre').value;
       alert(`¡Gracias ${nombre}! Te esperamos 🎉`);
-      setTimeout(() => mostrarSeccion('ubicacion'), 500);
+      setTimeout(() => mostrarSeccion('📍Ubicacion'), 500);
     }
 
     function denegarAsistencia() {
@@ -196,6 +189,9 @@
 
     window.addEventListener('DOMContentLoaded', () => {
       soltarGlobos();
+      const audio = document.getElementById('musicaFondo');
+      audio.volume = 0.5;
+      audio.play().catch(err => console.warn('No se pudo reproducir automáticamente:', err));
     });
   </script>
 </body>
