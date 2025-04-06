@@ -78,6 +78,12 @@
       animation: floatUp 10s linear infinite;
       z-index: 0;
     }
+    .balloon::before {
+      content: "🎈";
+      font-size: 2rem;
+      display: block;
+      text-align: center;
+    }
     @keyframes floatUp {
       0% {
         transform: translateY(0);
@@ -110,14 +116,22 @@
       0% { transform: translateY(0); opacity: 1; }
       100% { transform: translateY(100vh); opacity: 0; }
     }
+    #cuenta-regresiva {
+      font-size: 1.5rem;
+      margin-top: 2rem;
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
   <div id="balloons"></div>
   <div id="confetti"></div>
 
+  <!-- Cuenta regresiva -->
+  <div id="cuenta-regresiva" class="active"></div>
+
   <!-- Sección 1: Portada -->
-  <section id="portada" class="active">
+  <section id="portada">
     <div class="portada-bg">
       <h1 class="titulo-invitacion"><span class="emoji-bounce">🎉</span> ¡Estás invitado al cumpleaños de Brian! <span class="emoji-bounce">🎈</span></h1>
       <p>¡Vamos a celebrar sus 21 con toda  !</p>
@@ -173,9 +187,6 @@
       const globo = document.createElement('div');
       globo.className = 'balloon';
       globo.style.left = Math.random() * 100 + 'vw';
-      globo.style.width = Math.random() * 30 + 20 + 'px';
-      globo.style.height = globo.style.width;
-      globo.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 70%)`;
       document.body.appendChild(globo);
       setTimeout(() => globo.remove(), 10000);
     }
@@ -193,6 +204,32 @@
         setTimeout(() => confetti.remove(), 4000);
       }
     }
+
+    function actualizarCuentaRegresiva() {
+      const cuenta = document.getElementById("cuenta-regresiva");
+      const fechaEvento = new Date("April 12, 2025 12:00:00").getTime();
+
+      const intervalo = setInterval(() => {
+        const ahora = new Date().getTime();
+        const tiempoRestante = fechaEvento - ahora;
+
+        if (tiempoRestante <= 0) {
+          clearInterval(intervalo);
+          cuenta.innerHTML = "¡Ya es el cumple de Brian! 🎉";
+          lanzarConfeti();
+          return;
+        }
+
+        const dias = Math.floor(tiempoRestante / (1000 * 60 * 60 * 24));
+        const horas = Math.floor((tiempoRestante % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutos = Math.floor((tiempoRestante % (1000 * 60 * 60)) / (1000 * 60));
+        const segundos = Math.floor((tiempoRestante % (1000 * 60)) / 1000);
+
+        cuenta.innerHTML = `Faltan ${dias}d ${horas}h ${minutos}m ${segundos}s para el cumple 🎂`;
+      }, 1000);
+    }
+
+    actualizarCuentaRegresiva();
   </script>
 </body>
 </html>
