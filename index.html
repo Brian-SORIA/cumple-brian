@@ -160,7 +160,11 @@
     function mostrarSeccion(id) {
       document.querySelectorAll('section').forEach(sec => sec.classList.remove('active'));
       const seccion = document.getElementById(id);
-      if (seccion) seccion.classList.add('active');
+      if (seccion) {
+        seccion.classList.add('active');
+      } else {
+        console.warn(`❌ Sección con id "${id}" no encontrada.`);
+      }
     }
 
     function enviarConfirmacion(event) {
@@ -203,6 +207,14 @@
         });
       }
     });
+
+    // Garantizar reproducción con interacción
+    document.addEventListener('click', () => {
+      const audio = document.getElementById('musicaFondo');
+      if (audio.paused) {
+        audio.play().catch(err => console.warn('Error al reintentar reproducir:', err));
+      }
+    }, { once: true });
   </script>
 </body>
 </html>
