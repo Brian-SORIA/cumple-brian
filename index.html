@@ -101,13 +101,7 @@
 </head>
 <body>
   <div id="balloons"></div>
-
-  <!-- 🎵 Música de fondo -->
-  <audio id="musicaFondo" autoplay loop playsinline style="display: none;">
-    <source src="https://www.bensound.com/bensound-music/bensound-sunny.mp3" type="audio/mpeg">
-  </audio>
-
-  <!-- Sección 1: Portada -->
+  
   <!-- Sección 1: Portada -->
 <section id="portada" class="active">
   <div class="portada-bg">
@@ -147,10 +141,19 @@
   </section>
 
   <script>
-    function mostrarSeccion(id) {
-      document.querySelectorAll('section').forEach(sec => sec.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
+   function mostrarSeccion(id) {
+  document.querySelectorAll('section').forEach(sec => sec.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+
+  // Iniciar la música en la primera interacción (cuando pasa a la sección de confirmación)
+  if (id === 'confirmacion') {
+    const audio = document.getElementById('musicaFondo');
+    if (audio && audio.paused) {
+      audio.play().catch(err => console.log('Autoplay bloqueado:', err));
     }
+  }
+}
+
 
     function enviarConfirmacion(event) {
       event.preventDefault();
@@ -195,10 +198,11 @@
   </script>
 
   <!-- 🎵 Música de fondo -->
-  <audio autoplay loop>
-    <source src="https://voca.ro/13VPsqZpWxxR/download" type="audio/mpeg">
-    Tu navegador no soporta audio HTML5.
-  </audio>
+<audio id="musicaFondo" loop>
+  <source src="https://voca.ro/13VPsqZpWxxR/download" type="audio/mpeg">
+  Tu navegador no soporta audio HTML5.
+</audio>
+
 </body>
 </html>
 
