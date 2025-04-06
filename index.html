@@ -204,24 +204,6 @@
         contenedor.appendChild(pieza);
       }
     }
-
-    // Música: reproducir en cuanto se muestre la portada
-    window.addEventListener('DOMContentLoaded', () => {
-      const audio = document.getElementById('musicaFondo');
-      function iniciarMusica() {
-        audio.play().catch(() => {
-          console.log("Autoplay bloqueado. Se reproducirá tras interacción.");
-        });
-        document.removeEventListener('click', iniciarMusica);
-      }
-
-      audio.play().catch(() => {
-        document.addEventListener('click', iniciarMusica);
-      });
-
-      soltarGlobos();
-      soltarConfeti();
-    });
   </script>
 </body>
 </html>
