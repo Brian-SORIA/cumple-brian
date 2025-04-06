@@ -114,7 +114,7 @@
 </head>
 <body>
   <!-- 🔊 Música de fondo oculta -->
-  <audio id="musicaFondo" autoplay loop playsinline>
+  <audio id="musicaFondo" autoplay loop playsinline muted>
     <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
     Tu navegador no soporta audio.
   </audio>
@@ -203,6 +203,22 @@
       const contenedor = document.getElementById('balloons');
       contenedor.innerHTML = '';
     }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const audio = document.getElementById('musicaFondo');
+      audio.muted = false;
+      const playPromise = audio.play();
+
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => {
+            console.log('Música iniciada automáticamente 🎶');
+          })
+          .catch(error => {
+            console.warn('El navegador bloqueó el autoplay:', error);
+          });
+      }
+    });
 
     soltarGlobos();
   </script>
