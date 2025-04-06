@@ -9,7 +9,7 @@
     body {
       margin: 0;
       font-family: 'Poppins', sans-serif !important;
-      background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
+      background: linear-gradient(135deg, #acb6c7, #c2e9fb);
       color: #0509f8;
       overflow: hidden;
     }
@@ -26,7 +26,7 @@
       background-color: #2805ee;
       color: white;
       border: none;
-      border-radius: 50px;
+      border-radius: 10px;
       font-size: 1.2rem;
       cursor: pointer;
       transition: transform 0.2s;
@@ -38,7 +38,7 @@
     .portada-bg {
       padding: 4rem 2rem;
       border-radius: 20px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      box-shadow: 0 0 20px rgba(2, 176, 245, 0.1);
       margin: 2rem auto;
       max-width: 600px;
       text-align: center;
@@ -99,18 +99,22 @@
   </section>
 
   <!-- Sección 3: Ubicación con mapa -->
-  <section id="ubicacion">
-    <h2>Ubicación</h2>
+<section id="ubicacion">
+  <h2>Ubicación</h2>
+  <div style="display: flex; justify-content: center;">
     <iframe
+      style="width: 90%; height: 400px; border: 3px solid #2805ee; border-radius: 15px;"
       src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13136.476602634179!2d-58.85440255404939!3d-34.40840355089773!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bc9f29e3776fd7%3A0x2bb1c13aa2c470fc!2sJ.%20L.%20Palliere%202309%2C%20B1631%20Villa%20Rosa%2C%20Provincia%20de%20Buenos%20Aires!5e0!3m2!1ses!2sar!4v1712238440073!5m2!1ses!2sar"
       allowfullscreen=""
       loading="lazy"
       referrerpolicy="no-referrer-when-downgrade">
     </iframe>
-    <p>Para obtener tu credencial de entrada, envíame un mensaje por WhatsApp:</p>
-    <a href="https://wa.me/5491166492863?text=Hola,%20quiero%20mi%20credencial%20de%20entrada%20!" class="btn" target="_blank">Solicitar credencial</a>
-  </section>
-
+  </div>
+  <p style="margin-top: 1rem; font-size: 1.2rem;">📍 Tocá el mapa para ver la ubicación <span style="font-size: 1.5rem;">👆</span></p>
+  <p>Para obtener tu credencial de entrada, envíame un mensaje por WhatsApp:</p>
+  <a href="https://wa.me/5491166492863?text=Hola,%20quiero%20mi%20credencial%20de%20entrada%20!" class="btn" target="_blank">Solicitar credencial</a>
+  
+</section>
   <script>
     function mostrarSeccion(id) {
       document.querySelectorAll('section').forEach(sec => sec.classList.remove('active'));
@@ -126,6 +130,36 @@
       const nombre = document.getElementById('nombre').value;
       alert(`¡Gracias por avisar, ${nombre}! 😢`);
     }
+
+    // Globos animados
+    function soltarGlobos() {
+      const contenedor = document.getElementById('balloons');
+      for (let i = 0; i < 15; i++) {
+        const globo = document.createElement('div');
+        globo.classList.add('balloon');
+        globo.style.left = Math.random() * 100 + 'vw';
+        globo.style.animationDuration = (8 + Math.random() * 5) + 's';
+        contenedor.appendChild(globo);
+      }
+    }
+
+    // Confeti animado con variedad
+    const confetis = ['🎉', '✨', '💫', '🎊', '🌟'];
+    function soltarConfeti() {
+      const contenedor = document.getElementById('confetti');
+      for (let i = 0; i < 50; i++) {
+        const pieza = document.createElement('div');
+        pieza.classList.add('confetti-piece');
+        pieza.textContent = confetis[Math.floor(Math.random() * confetis.length)];
+        pieza.style.left = Math.random() * 100 + 'vw';
+        pieza.style.animationDelay = (Math.random() * 2) + 's';
+        pieza.style.fontSize = (1 + Math.random() * 2) + 'rem';
+        contenedor.appendChild(pieza);
+      }
+    }
+
+    soltarGlobos();
+    soltarConfeti();
   </script>
 </body>
 </html>
