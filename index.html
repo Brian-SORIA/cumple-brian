@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Invitación Cumple Brian</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
@@ -84,17 +84,35 @@
       font-size: 1rem;
       color: #333;
     }
+    #confetti .confetti-piece {
+      position: absolute;
+      animation: caer 3s linear infinite;
+    }
+    @keyframes caer {
+      0% { transform: translateY(-100vh); }
+      100% { transform: translateY(100vh); }
+    }
+    #balloons .balloon {
+      position: absolute;
+      bottom: 0;
+      animation: subir 8s linear infinite;
+    }
+    @keyframes subir {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-100vh); }
+    }
   </style>
 </head>
 <body>
   <div id="balloons"></div>
+  <div id="confetti"></div>
 
   <!-- 🔊 Música de fondo oculta -->
-<audio id="musicaFondo" autoplay loop>
-  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-  Tu navegador no soporta audio.
-</audio>
-  
+  <audio id="musicaFondo" autoplay loop>
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    Tu navegador no soporta audio.
+  </audio>
+
   <!-- Sección 1: Portada -->
   <section id="portada" class="active">
     <div class="portada-bg">
@@ -131,23 +149,17 @@
   </section>
 
   <script>
-  function mostrarSeccion(id) {
-    document.querySelectorAll('section').forEach(sec => sec.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
+    function mostrarSeccion(id) {
+      document.querySelectorAll('section').forEach(sec => sec.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
 
-    // Reproducir la música tras interacción del usuario
-    const audio = document.getElementById("musicaFondo");
-    if (audio) {
-      audio.play().catch(() => {
-        console.log("La música no pudo reproducirse automáticamente.");
-      });
+      const audio = document.getElementById("musicaFondo");
+      if (audio) {
+        audio.play().catch(() => {
+          console.log("La música no pudo reproducirse automáticamente.");
+        });
+      }
     }
-  }
-</script>
-
-</section>
-
-  <script>
 
     function enviarConfirmacion(event) {
       event.preventDefault();
@@ -161,7 +173,6 @@
       alert(`¡Gracias por avisar, ${nombre}! 😢`);
     }
 
-    // Globos animados
     function soltarGlobos() {
       const contenedor = document.getElementById('balloons');
       for (let i = 0; i < 15; i++) {
@@ -173,7 +184,6 @@
       }
     }
 
-    // Confeti animado
     const confetis = ['🎉', '✨', '💫', '🎊', '🌟'];
     function soltarConfeti() {
       const contenedor = document.getElementById('confetti');
@@ -191,6 +201,24 @@
 
     soltarGlobos();
     soltarConfeti();
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const audio = document.getElementById("musicaFondo");
+      if (audio) {
+        audio.play().catch(() => {
+          console.log("Reproducción automática bloqueada, esperando interacción...");
+        });
+      }
+    });
+
+    document.addEventListener("click", () => {
+      const audio = document.getElementById("musicaFondo");
+      if (audio && audio.paused) {
+        audio.play().catch(() => {
+          console.log("Todavía no se puede reproducir.");
+        });
+      }
+    }, { once: true });
   </script>
 </body>
 </html>
