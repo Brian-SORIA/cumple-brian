@@ -72,23 +72,41 @@
       width: 80%;
       max-width: 400px;
     }
+    iframe {
+      width: 90%;
+      height: 300px;
+      border: none;
+      border-radius: 15px;
+      margin-bottom: 1rem;
+    }
+    .indicacion {
+      font-size: 1rem;
+      color: #333;
+      margin-top: 0.5rem;
+    }
   </style>
 </head>
 <body>
   <div id="balloons"></div>
 
+  <!-- 🎵 Música de fondo -->
+  <audio id="musicaFondo" autoplay loop style="display: none;">
+    <source src="https://www.bensound.com/bensound-music/bensound-happyrock.mp3" type="audio/mpeg">
+    Tu navegador no soporta el audio HTML5.
+  </audio>
+
   <!-- Sección 1: Portada -->
   <section id="portada" class="active">
     <div class="portada-bg">
       <h1 class="titulo-invitacion"><span class="emoji-bounce">🎉</span> ¡Estás invitado al cumpleaños de Brian! <span class="emoji-bounce">🎈</span></h1>
-      <p>¡Vamos a celebrar sus 21 a toda fiesta  !!!</p>
+      <p>¡Vamos a celebrar sus 21 a toda fiesta !!!</p>
       <p><strong>📅 Cuándo:</strong> 12 de abril | <strong>🕛 Hora:</strong> 12:00 p.m. a 20:00 p.m.</p>
       <p><strong>📍 Dónde:</strong> J. L. Palliere 2309, Villa Rosa, Bs. As.</p>
       <button class="btn" onclick="mostrarSeccion('confirmacion')">¡Continuar!</button>
     </div>
   </section>
 
-  <!-- Sección 2: Confirmación de asistencia -->
+  <!-- Sección 2: Confirmación -->
   <section id="confirmacion">
     <h2>¿Podés venir?</h2>
     <form onsubmit="enviarConfirmacion(event)">
@@ -98,19 +116,16 @@
     </form>
   </section>
 
-  <!-- Sección 3: Ubicación con mapa -->
+  <!-- Sección 3: Ubicación -->
   <section id="ubicacion">
     <h2>Ubicación</h2>
-    <div style="display: flex; justify-content: center;">
-      <iframe
-        style="width: 90%; height: 400px; border: 3px solid #2805ee; border-radius: 15px;"
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13136.476602634179!2d-58.85440255404939!3d-34.40840355089773!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bc9f29e3776fd7%3A0x2bb1c13aa2c470fc!2sJ.%20L.%20Palliere%202309%2C%20B1631%20Villa%20Rosa%2C%20Provincia%20de%20Buenos%20Aires!5e0!3m2!1ses!2sar!4v1712238440073!5m2!1ses!2sar"
-        allowfullscreen=""
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade">
-      </iframe>
-    </div>
-    <p style="margin-top: 1rem; font-size: 1.2rem;">📍 Tocá el mapa para ver la ubicación <span style="font-size: 1.5rem;">👆</span></p>
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13136.476602634179!2d-58.85440255404939!3d-34.40840355089773!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bc9f29e3776fd7%3A0x2bb1c13aa2c470fc!2sJ.%20L.%20Palliere%202309%2C%20B1631%20Villa%20Rosa%2C%20Provincia%20de%20Buenos%20Aires!5e0!3m2!1ses!2sar!4v1712238440073!5m2!1ses!2sar"
+      allowfullscreen=""
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+    <p class="indicacion">📍 Tocá el mapa para ver la ubicación</p>
     <p>Para obtener tu credencial de entrada, envíame un mensaje por WhatsApp:</p>
     <a href="https://wa.me/5491166492863?text=Hola,%20quiero%20mi%20credencial%20de%20entrada%20!" class="btn" target="_blank">Solicitar credencial</a>
   </section>
@@ -120,18 +135,20 @@
       document.querySelectorAll('section').forEach(sec => sec.classList.remove('active'));
       document.getElementById(id).classList.add('active');
     }
+
     function enviarConfirmacion(event) {
       event.preventDefault();
       const nombre = document.getElementById('nombre').value;
       alert(`¡Gracias ${nombre}! Te esperamos 🎉`);
       setTimeout(() => mostrarSeccion('ubicacion'), 500);
     }
+
     function denegarAsistencia() {
       const nombre = document.getElementById('nombre').value;
       alert(`¡Gracias por avisar, ${nombre}! 😢`);
     }
 
-    // Globos animados
+    // 🎈 Globos
     function soltarGlobos() {
       const contenedor = document.getElementById('balloons');
       for (let i = 0; i < 15; i++) {
@@ -143,31 +160,42 @@
       }
     }
 
-    // Confeti animado con variedad
+    // 🎊 Confeti
     const confetis = ['🎉', '✨', '💫', '🎊', '🌟'];
     function soltarConfeti() {
-      const contenedor = document.getElementById('confetti');
+      const contenedor = document.getElementById('confetti') || document.body;
       for (let i = 0; i < 50; i++) {
         const pieza = document.createElement('div');
         pieza.classList.add('confetti-piece');
         pieza.textContent = confetis[Math.floor(Math.random() * confetis.length)];
+        pieza.style.position = 'absolute';
         pieza.style.left = Math.random() * 100 + 'vw';
-        pieza.style.animationDelay = (Math.random() * 2) + 's';
+        pieza.style.top = '-2rem';
+        pieza.style.animation = `fall ${2 + Math.random() * 3}s linear infinite`;
         pieza.style.fontSize = (1 + Math.random() * 2) + 'rem';
         contenedor.appendChild(pieza);
       }
     }
 
+    // 🎵 Reproducir música automáticamente
+    window.addEventListener('load', () => {
+      const audio = document.getElementById('musicaFondo');
+      audio.volume = 0.3;
+      const playPromise = audio.play();
+
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          // Si el navegador bloquea el autoplay, arranca con el primer clic
+          document.body.addEventListener('click', () => {
+            audio.play();
+          }, { once: true });
+        });
+      }
+    });
+
     soltarGlobos();
     soltarConfeti();
   </script>
-
-  <!-- Música de fondo -->
-  <audio id="musicaFondo" autoplay loop controls 
-    style="position: fixed; bottom: 20px; left: 20px; z-index: 999; background-color: rgba(255,255,255,0.8); border-radius: 10px;">
-    <source src="https://www.bensound.com/bensound-music/bensound-happyrock.mp3" type="audio/mpeg">
-    Tu navegador no soporta el audio HTML5.
-  </audio>
 </body>
 </html>
 
