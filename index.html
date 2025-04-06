@@ -11,12 +11,14 @@
       font-family: 'Poppins', sans-serif !important;
       background: linear-gradient(135deg, #acb6c7, #c2e9fb);
       color: #0509f8;
-      overflow: hidden;
+      overflow-x: hidden;
     }
     section {
       display: none;
       padding: 2rem;
       text-align: center;
+      position: relative;
+      z-index: 2;
     }
     .active {
       display: block;
@@ -45,7 +47,7 @@
       background-color: #d0e1f9;
       position: relative;
       overflow: hidden;
-      z-index: 1;
+      z-index: 2;
     }
     .titulo-invitacion {
       font-size: 2rem;
@@ -54,29 +56,9 @@
       text-shadow: 0 0 10px rgb(20, 2, 126), 0 0 20px rgb(46, 6, 223);
       animation: parpadeoLED 1s infinite alternate;
     }
-    h2 {
-      background: linear-gradient(135deg, #8ec5fc, #e0c3fc);
-      padding: 1rem 2rem;
-      border-radius: 20px;
-      display: inline-block;
-      color: #0b00aa;
-      text-shadow: 1px 1px 3px #fff;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-      animation: resplandor 2s ease-in-out infinite alternate;
-    }
     @keyframes parpadeoLED {
       0% { text-shadow: 0 0 10px #ff0, 0 0 20px #ff0; }
       100% { text-shadow: none; }
-    }
-    @keyframes resplandor {
-      0% {
-        transform: scale(1);
-        box-shadow: 0 0 15px #89f;
-      }
-      100% {
-        transform: scale(1.05);
-        box-shadow: 0 0 25px #e0c3fc;
-      }
     }
     input[type="text"] {
       padding: 1rem;
@@ -92,6 +74,8 @@
       border: none;
       border-radius: 12px;
       margin-top: 20px;
+      z-index: 2;
+      position: relative;
     }
     .mapa-instruccion {
       margin-top: 10px;
@@ -115,7 +99,7 @@
       background-color: hsl(calc(360 * var(--hue)), 70%, 60%);
       border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
       animation: subir 8s linear infinite;
-      opacity: 0.8;
+      opacity: 0.6;
     }
     .balloon::after {
       content: '';
@@ -163,8 +147,8 @@
   </section>
 
   <!-- Sección 3: Ubicación con mapa -->
-  <section id="Ubicacion">
-    <h2>📍Ubicación</h2>
+  <section id="ubicacion">
+    <h2>Ubicación</h2>
     <iframe
       src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13136.476602634179!2d-58.85440255404939!3d-34.40840355089773!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bc9f29e3776fd7%3A0x2bb1c13aa2c470fc!2sJ.%20L.%20Palliere%202309%2C%20B1631%20Villa%20Rosa%2C%20Provincia%20de%20Buenos%20Aires!5e0!3m2!1ses!2sar!4v1712238440073!5m2!1ses!2sar"
       allowfullscreen=""
@@ -191,7 +175,7 @@
       event.preventDefault();
       const nombre = document.getElementById('nombre').value;
       alert(`¡Gracias ${nombre}! Te esperamos 🎉`);
-      setTimeout(() => mostrarSeccion('📍Ubicacion'), 500);
+      setTimeout(() => mostrarSeccion('ubicacion'), 500);
     }
 
     function denegarAsistencia() {
@@ -227,7 +211,6 @@
       intentoAutoplay();
     });
 
-    // Reintentar reproducción con interacción del usuario
     document.addEventListener('click', () => {
       const audio = document.getElementById('musicaFondo');
       if (audio.paused) {
@@ -237,4 +220,3 @@
   </script>
 </body>
 </html>
-
