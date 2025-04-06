@@ -72,63 +72,24 @@
       width: 80%;
       max-width: 400px;
     }
-    .balloon {
-      position: absolute;
-      bottom: -150px;
-      animation: floatUp 10s linear infinite;
-      z-index: 0;
-      font-size: 2.5rem;
-    }
-    .balloon::before {
-      content: "🎈";
-    }
-    @keyframes floatUp {
-      0% {
-        transform: translateY(0);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(-120vh);
-        opacity: 0;
-      }
-    }
-    .confetti {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      overflow: hidden;
-      z-index: 999;
-    }
-    .confetti-piece {
-      position: absolute;
-      top: -10px;
-      font-size: 1.5rem;
-      animation: fall 3s linear forwards;
-    }
-    .confetti-piece::before {
-      content: "🎉";
-    }
-    @keyframes fall {
-      0% { transform: translateY(0); opacity: 1; }
-      100% { transform: translateY(100vh); opacity: 0; }
-    }
-    audio {
-      display: none;
-    }
   </style>
 </head>
 <body>
-  <audio autoplay loop>
-    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-    Tu navegador no soporta la reproducción de audio.
-  </audio>
   <div id="balloons"></div>
-  <div id="confetti"></div>
+  audio {
+    display: none;
+  }
+</style>
+</head>
+<body>
+<audio autoplay loop>
+  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+  Tu navegador no soporta la reproducción de audio.
+</audio>
+<div id="balloons"></div>
+<div id="confetti"></div>
 
-  <!-- Secciones -->
+  <!-- Sección 1: Portada -->
   <section id="portada" class="active">
     <div class="portada-bg">
       <h1 class="titulo-invitacion"><span class="emoji-bounce">🎉</span> ¡Estás invitado al cumpleaños de Brian! <span class="emoji-bounce">🎈</span></h1>
@@ -139,8 +100,7 @@
     </div>
   </section>
 
-
- <!-- Sección 2: Confirmación de asistencia -->
+  <!-- Sección 2: Confirmación de asistencia -->
   <section id="confirmacion">
     <h2>¿Podés venir?</h2>
     <form onsubmit="enviarConfirmacion(event)">
@@ -150,26 +110,36 @@
     </form>
   </section>
 
-
+  <!-- Sección 3: Ubicación con mapa -->
   <section id="ubicacion">
-    <h2>📍 Ubicacion del evento</h2>
+    <h2>Ubicación</h2>
     <iframe
-      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13109.095541240984!2d-58.8385!3d-34.4515!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bcbf35f94fd0e3%3A0x95b490d2020e5e67!2sVilla%20Rosa%2C%20Provincia%20de%20Buenos%20Aires!5e0!3m2!1ses-419!2sar!4v1617302787064!5m2!1ses-419!2sar"
-      width="100%" height="300" style="border:0; border-radius:10px;" allowfullscreen="" loading="lazy"></iframe>
-    <br>
- </iframe>
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13136.476602634179!2d-58.85440255404939!3d-34.40840355089773!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bc9f29e3776fd7%3A0x2bb1c13aa2c470fc!2sJ.%20L.%20Palliere%202309%2C%20B1631%20Villa%20Rosa%2C%20Provincia%20de%20Buenos%20Aires!5e0!3m2!1ses!2sar!4v1712238440073!5m2!1ses!2sar"
+      allowfullscreen=""
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
     <p>Para obtener tu credencial de entrada, envíame un mensaje por WhatsApp:</p>
     <a href="https://wa.me/5491166492863?text=Hola,%20quiero%20mi%20credencial%20de%20entrada!" class="btn" target="_blank">Solicitar credencial</a>
   </section>
 
   <script>
     function mostrarSeccion(id) {
-      document.querySelectorAll('section').forEach(seccion => seccion.classList.remove('active'));
+      document.querySelectorAll('section').forEach(sec => sec.classList.remove('active'));
       document.getElementById(id).classList.add('active');
     }
-
-    // Globos animados
-    function soltarGlobos() {
+    function enviarConfirmacion(event) {
+      event.preventDefault();
+      const nombre = document.getElementById('nombre').value;
+      alert(`¡Gracias ${nombre}! Te esperamos 🎉`);
+      setTimeout(() => mostrarSeccion('ubicacion'), 500);
+    }
+    function denegarAsistencia() {
+      const nombre = document.getElementById('nombre').value;
+      alert(`¡Gracias por avisar, ${nombre}! 😢`);
+    }
+      // Globos animados
+      function soltarGlobos() {
       const contenedor = document.getElementById('balloons');
       for (let i = 0; i < 15; i++) {
         const globo = document.createElement('div');
