@@ -117,7 +117,7 @@
   <div id="balloons"></div>
 
   <!-- 🔊 Música de fondo oculta -->
-  <audio id="musicaFondo" autoplay loop muted>
+  <audio id="musicaFondo" autoplay loop>
     <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
   </audio>
 
@@ -196,19 +196,18 @@
       soltarGlobos();
 
       const audio = document.getElementById('musicaFondo');
-      audio.muted = false;
-      const playPromise = audio.play();
-
-      if (playPromise !== undefined) {
-        playPromise.then(() => {
+      const intentoAutoplay = () => {
+        audio.play().then(() => {
           console.log('🎵 Música reproducida automáticamente');
         }).catch(error => {
-          console.warn('Autoplay falló:', error);
+          console.warn('⚠️ Autoplay falló. Esperando interacción del usuario.');
         });
-      }
+      };
+
+      intentoAutoplay();
     });
 
-    // Garantizar reproducción con interacción
+    // Reintentar reproducción con interacción del usuario
     document.addEventListener('click', () => {
       const audio = document.getElementById('musicaFondo');
       if (audio.paused) {
@@ -218,4 +217,5 @@
   </script>
 </body>
 </html>
+
 
