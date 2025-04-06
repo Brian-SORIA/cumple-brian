@@ -91,11 +91,10 @@
 
   <!-- 🔊 Música de fondo oculta -->
 <audio id="musicaFondo" autoplay loop>
-  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_7e3bfae1cf.mp3?filename=ukulele-14299.mp3" type="audio/mpeg" />
+  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
   Tu navegador no soporta audio.
 </audio>
-
-
+  
   <!-- Sección 1: Portada -->
   <section id="portada" class="active">
     <div class="portada-bg">
@@ -132,17 +131,20 @@
   </section>
 
   <script>
-   function mostrarSeccion(id) {
-  document.querySelectorAll('section').forEach(sec => sec.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
+  function mostrarSeccion(id) {
+    document.querySelectorAll('section').forEach(sec => sec.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
 
-  const audio = document.getElementById("musicaFondo");
-  if (audio) {
-    audio.play().catch(() => {
-      // Si falla, el usuario debe interactuar con la página (clic, scroll, etc.)
-    });
+    // Reproducir la música tras interacción del usuario
+    const audio = document.getElementById("musicaFondo");
+    if (audio) {
+      audio.play().catch(() => {
+        console.log("La música no pudo reproducirse automáticamente.");
+      });
+    }
   }
-}
+</script>
+
 
 
     function enviarConfirmacion(event) {
