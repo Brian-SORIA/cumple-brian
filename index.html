@@ -77,12 +77,10 @@
       bottom: -150px;
       animation: floatUp 10s linear infinite;
       z-index: 0;
+      font-size: 2.5rem;
     }
     .balloon::before {
       content: "🎈";
-      font-size: 2rem;
-      display: block;
-      text-align: center;
     }
     @keyframes floatUp {
       0% {
@@ -105,131 +103,89 @@
       z-index: 999;
     }
     .confetti-piece {
-      width: 10px;
-      height: 10px;
-      background: red;
       position: absolute;
       top: -10px;
+      font-size: 1.5rem;
       animation: fall 3s linear forwards;
+    }
+    .confetti-piece::before {
+      content: "🎉";
     }
     @keyframes fall {
       0% { transform: translateY(0); opacity: 1; }
       100% { transform: translateY(100vh); opacity: 0; }
     }
-    #cuenta-regresiva {
-      font-size: 1.5rem;
-      margin-top: 2rem;
-      font-weight: bold;
+    audio {
+      display: none;
     }
   </style>
 </head>
 <body>
+  <audio autoplay loop>
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    Tu navegador no soporta la reproducción de audio.
+  </audio>
   <div id="balloons"></div>
   <div id="confetti"></div>
 
-  <!-- Cuenta regresiva -->
-  <div id="cuenta-regresiva" class="active"></div>
-
-  <!-- Sección 1: Portada -->
-  <section id="portada">
+  <!-- Secciones -->
+  <section id="portada" class="active">
     <div class="portada-bg">
-      <h1 class="titulo-invitacion"><span class="emoji-bounce">🎉</span> ¡Estás invitado al cumpleaños de Brian! <span class="emoji-bounce">🎈</span></h1>
-      <p>¡Vamos a celebrar sus 21 con toda  !</p>
-      <p><strong>📅 Cuándo:</strong> 12 de abril | <strong>🕛 Hora:</strong> 12:00 p.m. a 20:00 p.m.</p>
-      <p><strong>📍 Dónde:</strong> J. L. Palliere 2309, Villa Rosa, Bs. As.</p>
-      <button class="btn" onclick="mostrarSeccion('confirmacion')">¡𝘾𝙤𝙣𝙩𝙞𝙣𝙪𝙖𝙧!</button>
+      <h1 class="titulo-invitacion">¡Estás invitado al cumple de Brian! <span class="emoji-bounce">🥳</span></h1>
+      <button class="btn" onclick="mostrarSeccion('confirmacion')">Continuar</button>
     </div>
   </section>
 
-  <!-- Sección 2: Confirmación de asistencia -->
   <section id="confirmacion">
-    <h2>¿Podés venir?</h2>
-    <form onsubmit="enviarConfirmacion(event)">
-      <input type="text" id="nombre" placeholder="Tu nombre" required /> <br />
-      <button type="submit" class="btn">Confirmar asistencia</button>
-      <button type="button" class="btn" onclick="denegarAsistencia()">No puedo ir</button>
-    </form>
+    <h2>¿Vas a venir?</h2>
+    <input type="text" placeholder="Escribí tu nombre..." />
+    <br />
+    <button class="btn" onclick="mostrarSeccion('ubicacion')">Confirmar asistencia</button>
   </section>
 
-  <!-- Sección 3: Ubicación con mapa -->
   <section id="ubicacion">
-    <h2>Ubicación</h2>
+    <h2>📍 Dirección del cumple</h2>
+    <p>J. L. Palliere 2309, B1631 Villa Rosa, Provincia de Buenos Aires</p>
     <iframe
-      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13136.476602634179!2d-58.85440255404939!3d-34.40840355089773!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bc9f29e3776fd7%3A0x2bb1c13aa2c470fc!2sJ.%20L.%20Palliere%202309%2C%20B1631%20Villa%20Rosa%2C%20Provincia%20de%20Buenos%20Aires!5e0!3m2!1ses!2sar!4v1712238440073!5m2!1ses!2sar"
-      allowfullscreen=""
-      loading="lazy"
-      referrerpolicy="no-referrer-when-downgrade">
-    </iframe>
-    <p>Para obtener tu credencial de entrada, envíame un mensaje por WhatsApp:</p>
-    <a href="https://wa.me/5491166492863?text=Hola,%20quiero%20mi%20credencial%20de%20entrada!" class="btn" target="_blank">Solicitar credencial</a>
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13109.095541240984!2d-58.8385!3d-34.4515!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bcbf35f94fd0e3%3A0x95b490d2020e5e67!2sVilla%20Rosa%2C%20Provincia%20de%20Buenos%20Aires!5e0!3m2!1ses-419!2sar!4v1617302787064!5m2!1ses-419!2sar"
+      width="100%" height="300" style="border:0; border-radius:10px;" allowfullscreen="" loading="lazy"></iframe>
+    <br>
+    <button class="btn" onclick="window.open('https://wa.me/5491123456789?text=¡Hola!%20Confirmo%20mi%20asistencia%20al%20cumple%20de%20Brian', '_blank')">Confirmar por WhatsApp 📲</button>
   </section>
 
   <script>
     function mostrarSeccion(id) {
-      document.querySelectorAll('section').forEach(sec => sec.classList.remove('active'));
+      document.querySelectorAll('section').forEach(seccion => seccion.classList.remove('active'));
       document.getElementById(id).classList.add('active');
-      if (id === 'ubicacion') lanzarConfeti();
     }
 
-    function enviarConfirmacion(event) {
-      event.preventDefault();
-      const nombre = document.getElementById('nombre').value;
-      alert(`¡Gracias ${nombre}! Te esperamos 🎉`);
-      setTimeout(() => mostrarSeccion('ubicacion'), 500);
-    }
-
-    function denegarAsistencia() {
-      const nombre = document.getElementById('nombre').value;
-      alert(`¡Gracias por avisar, ${nombre}! 😢`);
-    }
-
-    function crearGlobo() {
-      const globo = document.createElement('div');
-      globo.className = 'balloon';
-      globo.style.left = Math.random() * 100 + 'vw';
-      document.body.appendChild(globo);
-      setTimeout(() => globo.remove(), 10000);
-    }
-    setInterval(crearGlobo, 800);
-
-    function lanzarConfeti() {
-      const confettiContainer = document.getElementById('confetti');
-      for (let i = 0; i < 100; i++) {
-        const confetti = document.createElement('div');
-        confetti.className = 'confetti-piece';
-        confetti.style.left = Math.random() * 100 + 'vw';
-        confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 60%)`;
-        confetti.style.animationDelay = (Math.random() * 2) + 's';
-        confettiContainer.appendChild(confetti);
-        setTimeout(() => confetti.remove(), 4000);
+    // Globos animados
+    function soltarGlobos() {
+      const contenedor = document.getElementById('balloons');
+      for (let i = 0; i < 15; i++) {
+        const globo = document.createElement('div');
+        globo.classList.add('balloon');
+        globo.style.left = Math.random() * 100 + 'vw';
+        globo.style.animationDuration = (8 + Math.random() * 5) + 's';
+        contenedor.appendChild(globo);
       }
     }
 
-    function actualizarCuentaRegresiva() {
-      const cuenta = document.getElementById("cuenta-regresiva");
-      const fechaEvento = new Date("April 12, 2025 12:00:00").getTime();
-
-      const intervalo = setInterval(() => {
-        const ahora = new Date().getTime();
-        const tiempoRestante = fechaEvento - ahora;
-
-        if (tiempoRestante <= 0) {
-          clearInterval(intervalo);
-          cuenta.innerHTML = "¡Ya es el cumple de Brian! 🎉";
-          lanzarConfeti();
-          return;
-        }
-
-        const dias = Math.floor(tiempoRestante / (1000 * 60 * 60 * 24));
-        const horas = Math.floor((tiempoRestante % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutos = Math.floor((tiempoRestante % (1000 * 60 * 60)) / (1000 * 60));
-        const segundos = Math.floor((tiempoRestante % (1000 * 60)) / 1000);
-
-        cuenta.innerHTML = `Faltan ${dias}d ${horas}h ${minutos}m ${segundos}s para el cumple 🎂`;
-      }, 1000);
+    // Confeti animado
+    function soltarConfeti() {
+      const contenedor = document.getElementById('confetti');
+      for (let i = 0; i < 50; i++) {
+        const pieza = document.createElement('div');
+        pieza.classList.add('confetti-piece');
+        pieza.style.left = Math.random() * 100 + 'vw';
+        pieza.style.animationDelay = (Math.random() * 2) + 's';
+        pieza.style.fontSize = (1 + Math.random() * 2) + 'rem';
+        contenedor.appendChild(pieza);
+      }
     }
 
-    actualizarCuentaRegresiva();
+    soltarGlobos();
+    soltarConfeti();
   </script>
 </body>
 </html>
