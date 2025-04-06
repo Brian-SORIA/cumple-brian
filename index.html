@@ -26,7 +26,7 @@
       background-color: #2805ee;
       color: white;
       border: none;
-      border-radius: 10px;
+      border-radius: 20px;
       font-size: 1.2rem;
       cursor: pointer;
       transition: transform 0.2s;
@@ -76,27 +76,15 @@
 </head>
 <body>
   <div id="balloons"></div>
-  audio {
-    display: none;
-  }
-</style>
-</head>
-<body>
-<audio autoplay loop>
-  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-  Tu navegador no soporta la reproducción de audio.
-</audio>
-<div id="balloons"></div>
-<div id="confetti"></div>
 
   <!-- Sección 1: Portada -->
   <section id="portada" class="active">
     <div class="portada-bg">
       <h1 class="titulo-invitacion"><span class="emoji-bounce">🎉</span> ¡Estás invitado al cumpleaños de Brian! <span class="emoji-bounce">🎈</span></h1>
-      <p>¡Vamos a celebrar sus 21 con toda  !</p>
+      <p>¡Vamos a celebrar sus 21 a toda fiesta  !!!</p>
       <p><strong>📅 Cuándo:</strong> 12 de abril | <strong>🕛 Hora:</strong> 12:00 p.m. a 20:00 p.m.</p>
       <p><strong>📍 Dónde:</strong> J. L. Palliere 2309, Villa Rosa, Bs. As.</p>
-      <button class="btn" onclick="mostrarSeccion('confirmacion')">¡𝘾𝙤𝙣𝙩𝙞𝙣𝙪𝙖𝙧!</button>
+      <button class="btn" onclick="mostrarSeccion('confirmacion')">¡Continuar!</button>
     </div>
   </section>
 
@@ -120,7 +108,7 @@
       referrerpolicy="no-referrer-when-downgrade">
     </iframe>
     <p>Para obtener tu credencial de entrada, envíame un mensaje por WhatsApp:</p>
-    <a href="https://wa.me/5491166492863?text=Hola,%20quiero%20mi%20credencial%20de%20entrada!" class="btn" target="_blank">Solicitar credencial</a>
+    <a href="https://wa.me/5491166492863?text=Hola,%20quiero%20mi%20credencial%20de%20entrada%20!" class="btn" target="_blank">Solicitar credencial</a>
   </section>
 
   <script>
@@ -138,33 +126,10 @@
       const nombre = document.getElementById('nombre').value;
       alert(`¡Gracias por avisar, ${nombre}! 😢`);
     }
-      // Globos animados
-      function soltarGlobos() {
-      const contenedor = document.getElementById('balloons');
-      for (let i = 0; i < 15; i++) {
-        const globo = document.createElement('div');
-        globo.classList.add('balloon');
-        globo.style.left = Math.random() * 100 + 'vw';
-        globo.style.animationDuration = (8 + Math.random() * 5) + 's';
-        contenedor.appendChild(globo);
-      }
-    }
-
-    // Confeti animado
-    function soltarConfeti() {
-      const contenedor = document.getElementById('confetti');
-      for (let i = 0; i < 50; i++) {
-        const pieza = document.createElement('div');
-        pieza.classList.add('confetti-piece');
-        pieza.style.left = Math.random() * 100 + 'vw';
-        pieza.style.animationDelay = (Math.random() * 2) + 's';
-        pieza.style.fontSize = (1 + Math.random() * 2) + 'rem';
-        contenedor.appendChild(pieza);
-      }
-    }
-
-    soltarGlobos();
-    soltarConfeti();
   </script>
 </body>
 </html>
+
+
+
+
