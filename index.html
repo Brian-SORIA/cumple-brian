@@ -43,6 +43,8 @@
       max-width: 600px;
       text-align: center;
       background-color: #d0e1f9;
+      position: relative;
+      overflow: hidden;
     }
     .titulo-invitacion {
       font-size: 2rem;
@@ -84,31 +86,35 @@
       font-size: 1rem;
       color: #333;
     }
-    #confetti .confetti-piece {
-      position: absolute;
-      animation: caer 3s linear infinite;
-    }
-    @keyframes caer {
-      0% { transform: translateY(-100vh); }
-      100% { transform: translateY(100vh); }
-    }
     #balloons .balloon {
       position: absolute;
-      bottom: 0;
+      bottom: -100px;
+      width: 40px;
+      height: 60px;
+      background-color: hsl(calc(360 * var(--hue)), 70%, 60%);
+      border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
       animation: subir 8s linear infinite;
+      opacity: 0.8;
+    }
+    .balloon::after {
+      content: '';
+      position: absolute;
+      width: 2px;
+      height: 30px;
+      background: #555;
+      top: 60px;
+      left: 50%;
+      transform: translateX(-50%);
     }
     @keyframes subir {
       0% { transform: translateY(0); }
-      100% { transform: translateY(-100vh); }
+      100% { transform: translateY(-120vh); }
     }
   </style>
 </head>
 <body>
-  <div id="balloons"></div>
-  <div id="confetti"></div>
-
   <!-- 🔊 Música de fondo oculta -->
-  <audio id="musicaFondo" autoplay loop>
+  <audio id="musicaFondo" autoplay loop playsinline>
     <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
     Tu navegador no soporta audio.
   </audio>
@@ -116,7 +122,8 @@
   <!-- Sección 1: Portada -->
   <section id="portada" class="active">
     <div class="portada-bg">
-      <h1 class="titulo-invitacion"><span class="emoji-bounce">🎉</span> ¡Estás invitado al cumpleaños de Brian! <span class="emoji-bounce">🎈</span></h1>
+      <div id="balloons"></div>
+      <h1 class="titulo-invitacion">🎈 ¡Estás invitado al cumpleaños de Brian! 🎈</h1>
       <p>¡Vamos a celebrar sus 21 a toda fiesta  !!!</p>
       <p><strong>📅 Cuándo:</strong> 12 de abril | <strong>🕛 Hora:</strong> 12:00 p.m. a 20:00 p.m.</p>
       <p><strong>📍 Dónde:</strong> J. L. Palliere 2309, Villa Rosa, Bs. As.</p>
@@ -152,12 +159,10 @@
     function mostrarSeccion(id) {
       document.querySelectorAll('section').forEach(sec => sec.classList.remove('active'));
       document.getElementById(id).classList.add('active');
-
-      const audio = document.getElementById("musicaFondo");
-      if (audio) {
-        audio.play().catch(() => {
-          console.log("La música no pudo reproducirse automáticamente.");
-        });
+      if (id === 'portada') {
+        soltarGlobos();
+      } else {
+        limpiarGlobos();
       }
     }
 
@@ -175,50 +180,31 @@
 
     function soltarGlobos() {
       const contenedor = document.getElementById('balloons');
-      for (let i = 0; i < 15; i++) {
+      contenedor.innerHTML = '';
+      for (let i = 0; i < 30; i++) {
         const globo = document.createElement('div');
         globo.classList.add('balloon');
+        globo.style.setProperty('--hue', Math.random());
         globo.style.left = Math.random() * 100 + 'vw';
-        globo.style.animationDuration = (8 + Math.random() * 5) + 's';
+        globo.style.animationDuration = (6 + Math.random() * 4) + 's';
+        globo.addEventListener('mouseover', () => {
+          globo.style.transform = 'scale(1.3)';
+          globo.style.opacity = '1';
+        });
+        globo.addEventListener('mouseout', () => {
+          globo.style.transform = '';
+          globo.style.opacity = '0.8';
+        });
         contenedor.appendChild(globo);
       }
     }
 
-    const confetis = ['🎉', '✨', '💫', '🎊', '🌟'];
-    function soltarConfeti() {
-      const contenedor = document.getElementById('confetti');
-      if (!contenedor) return;
-      for (let i = 0; i < 50; i++) {
-        const pieza = document.createElement('div');
-        pieza.classList.add('confetti-piece');
-        pieza.textContent = confetis[Math.floor(Math.random() * confetis.length)];
-        pieza.style.left = Math.random() * 100 + 'vw';
-        pieza.style.animationDelay = (Math.random() * 2) + 's';
-        pieza.style.fontSize = (1 + Math.random() * 2) + 'rem';
-        contenedor.appendChild(pieza);
-      }
+    function limpiarGlobos() {
+      const contenedor = document.getElementById('balloons');
+      contenedor.innerHTML = '';
     }
 
     soltarGlobos();
-    soltarConfeti();
-
-    document.addEventListener("DOMContentLoaded", () => {
-      const audio = document.getElementById("musicaFondo");
-      if (audio) {
-        audio.play().catch(() => {
-          console.log("Reproducción automática bloqueada, esperando interacción...");
-        });
-      }
-    });
-
-    document.addEventListener("click", () => {
-      const audio = document.getElementById("musicaFondo");
-      if (audio && audio.paused) {
-        audio.play().catch(() => {
-          console.log("Todavía no se puede reproducir.");
-        });
-      }
-    }, { once: true });
   </script>
 </body>
 </html>
