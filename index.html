@@ -115,19 +115,6 @@
     <p>¡Vamos a celebrar sus 21 a toda fiesta  !!!</p>
     <p><strong>📅 Cuándo:</strong> 12 de abril | <strong>🕛 Hora:</strong> 12:00 p.m. a 20:00 p.m.</p>
     <p><strong>📍 Dónde:</strong> J. L. Palliere 2309, Villa Rosa, Bs. As.</p>
-
-    <!-- 🎵 Video de música embebido -->
-    <div style="margin: 2rem auto; max-width: 560px;">
-      <p><strong>🎶 Dale play para ponerle ritmo a la previa 🎶</strong></p>
-      <iframe width="100%" height="315" 
-        src="https://www.youtube.com/embed/FeG8e97rEmM?rel=0" 
-        title="Peipper - SI LA GATA SE AMOTINAN" 
-        frameborder="0" 
-        allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-        allowfullscreen>
-      </iframe>
-    </div>
-
     <button class="btn" onclick="mostrarSeccion('confirmacion')">¡Continuar!</button>
   </div>
 </section>
@@ -204,7 +191,14 @@
         contenedor.appendChild(pieza);
       }
     }
+     soltarConfeti();
   </script>
+
+  <!-- 🎵 Música de fondo -->
+  <audio autoplay loop>
+    <source src="https://voca.ro/13VPsqZpWxxR/download" type="audio/mpeg">
+    Tu navegador no soporta audio HTML5.
+  </audio>
 </body>
 </html>
 
