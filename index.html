@@ -72,10 +72,49 @@
       width: 80%;
       max-width: 400px;
     }
+    .balloon {
+      position: absolute;
+      bottom: -150px;
+      animation: floatUp 10s linear infinite;
+      z-index: 0;
+    }
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-120vh);
+        opacity: 0;
+      }
+    }
+    .confetti {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 999;
+    }
+    .confetti-piece {
+      width: 10px;
+      height: 10px;
+      background: red;
+      position: absolute;
+      top: -10px;
+      animation: fall 3s linear forwards;
+    }
+    @keyframes fall {
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(100vh); opacity: 0; }
+    }
   </style>
 </head>
 <body>
   <div id="balloons"></div>
+  <div id="confetti"></div>
 
   <!-- Sección 1: Portada -->
   <section id="portada" class="active">
@@ -115,23 +154,45 @@
     function mostrarSeccion(id) {
       document.querySelectorAll('section').forEach(sec => sec.classList.remove('active'));
       document.getElementById(id).classList.add('active');
+      if (id === 'ubicacion') lanzarConfeti();
     }
+
     function enviarConfirmacion(event) {
       event.preventDefault();
       const nombre = document.getElementById('nombre').value;
       alert(`¡Gracias ${nombre}! Te esperamos 🎉`);
       setTimeout(() => mostrarSeccion('ubicacion'), 500);
     }
+
     function denegarAsistencia() {
       const nombre = document.getElementById('nombre').value;
       alert(`¡Gracias por avisar, ${nombre}! 😢`);
     }
+
+    function crearGlobo() {
+      const globo = document.createElement('div');
+      globo.className = 'balloon';
+      globo.style.left = Math.random() * 100 + 'vw';
+      globo.style.width = Math.random() * 30 + 20 + 'px';
+      globo.style.height = globo.style.width;
+      globo.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 70%)`;
+      document.body.appendChild(globo);
+      setTimeout(() => globo.remove(), 10000);
+    }
+    setInterval(crearGlobo, 800);
+
+    function lanzarConfeti() {
+      const confettiContainer = document.getElementById('confetti');
+      for (let i = 0; i < 100; i++) {
+        const confetti = document.createElement('div');
+        confetti.className = 'confetti-piece';
+        confetti.style.left = Math.random() * 100 + 'vw';
+        confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 60%)`;
+        confetti.style.animationDelay = (Math.random() * 2) + 's';
+        confettiContainer.appendChild(confetti);
+        setTimeout(() => confetti.remove(), 4000);
+      }
+    }
   </script>
 </body>
 </html>
-
-
-
-
-
-
